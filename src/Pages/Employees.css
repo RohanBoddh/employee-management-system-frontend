@@ -1,0 +1,305 @@
+/* PAGE */
+.employees-page {
+  padding: 24px;
+   margin-top: 70px;
+  background: #929d9bab;
+  min-height: 100vh;
+}
+
+/* MAIN DASHBOARD */
+.dashboard-wrapper {
+  background: #81d58857;
+  padding: 22px;
+  border-radius: 12px;
+}
+
+/* HEADER */
+.dashboard-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 18px;
+}
+
+/* TOP CARDS */
+.top-dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.top-dashboard-container .mini-card {
+    background-color: #0f1e0e47;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.mini-card:hover {
+  background: #b0cee4b6;  
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000 !important;   /* force black */
+  margin-bottom: 6px;
+}
+
+.mini-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+.mini-card p{
+  font-size: 18px;
+  color: black;
+}
+
+.mini-card.center {
+  text-align: center;
+}
+
+.mini-card select {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #c7c7c7;
+}
+
+/* BUTTON */
+.view-btn {
+  background: #6992eb;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.view-btn:hover {
+  background: #2563eb;   
+}
+
+/* SEARCH */
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* EMP GRID */
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.no-data {
+  color: #555;
+}
+
+/* =====================
+   EXPLORE SECTION
+===================== */
+.explore-section {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.explore-title {
+  font-size: px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 18px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.dashboard-card {
+  background: #0f1e0e47;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+}
+
+.dashboard-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin: 3px;
+}
+
+.dashboard-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.dashboard-card h4 {
+  font-size: 15px;
+  font-weight: 650;
+  color: #000;
+  margin: 6px 0;
+
+}
+
+.dashboard-card p {
+  font-size: 14px;
+  color: #000000;
+  line-height: 1.5;
+}
+
+.dashboard-btn {
+  margin-top: 12px;
+  background: transparent;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dashboard-btn:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ADD EMPLOYEE CARD - updated to match mini-card style */
+.add-employee-card {
+    background-color: #0f1e0e47;   /* same as mini-card */
+    padding: 25px;                 /* same as mini-card */
+    border-radius: 12px;           /* same as mini-card */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* same as mini-card */
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.add-employee-card:hover {
+    background: #b0cee4b6;        /* same hover as mini-card */
+    transform: translateY(-5px);   /* same hover effect */
+}
+
+.add-employee-card h3 {
+    font-size: 18px;               /* match mini-card font sizes */
+    font-weight: 600;
+    margin: 8px 0;
+    color: #000;                   /* force black like mini-card */
+}
+
+.add-employee-card p {
+    font-size: 16px;               /* match mini-card text size */
+    font-weight: 500;
+    color: #000;                   /* force black */
+    margin: 0;
+}
+
+.add-icon {
+    font-size: 22px;               /* optional: smaller to match mini-card proportion */
+    font-weight: bold;
+    color: #2563eb;                /* accent color to pop like mini-card text */
+    margin-bottom: 6px;
+}
+
+/* =========================
+   RESPONSIVE ONLY
+========================= */
+
+/* laptop small */
+@media (max-width: 1200px) {
+  .employees-page {
+    padding: 20px;
+  }
+
+  .dashboard-wrapper {
+    padding: 18px;
+  }
+}
+
+/* tablet */
+@media (max-width: 900px) {
+
+  .dashboard-header h2 {
+    font-size: 22px;
+  }
+
+  .top-dashboard-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .employee-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* mobile */
+@media (max-width: 600px) {
+
+  .employees-page {
+    padding: 16px;
+  }
+
+  .dashboard-wrapper {
+    padding: 16px;
+  }
+
+  .dashboard-header h2 {
+    font-size: 20px;
+  }
+
+  .top-dashboard-container {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-card {
+    padding: 20px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+}
+
+/* very small mobile */
+@media (max-width: 400px) {
+
+  .mini-card {
+    padding: 16px;
+  }
+
+  .mini-card h2 {
+    font-size: 20px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+}
+

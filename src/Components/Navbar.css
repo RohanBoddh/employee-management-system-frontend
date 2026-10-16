@@ -1,0 +1,194 @@
+/* =========================
+   🔹 NAVBAR WRAPPER
+========================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  width: 100%;
+  min-height: 70px;
+  background-color: #3a3a3a;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* =========================
+   🔹 MENU LIST
+========================= */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+}
+
+/* =========================
+   🔹 LINKS
+========================= */
+.navbar ul li {
+  flex-shrink: 0;
+}
+
+.navbar ul li .login-avatar {
+  width: 32px;
+  height: 32px;
+
+  background: #ffffff;
+  color: #000000;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  padding: 0;
+}
+
+.navbar ul li .login-avatar:hover {
+  background: #ffffff;
+}
+
+.navbar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  padding: 6px 10px;
+  border-radius: 16px;
+
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.navbar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar ul li a.active {
+  background-color: #ffffff;
+  color: #1e3c72;
+  font-weight: 600;
+}
+
+/* =========================
+   🔹 AVATAR (RIGHT END)
+========================= */
+.avatar-wrapper {
+  position: relative;
+  margin-left: auto; 
+}
+
+.login-avatar {
+  background: transparent;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+
+  color: #000;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.login-avatar:hover {
+  background: transparent;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+
+  background: #ffffff;
+  color: #333;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* =========================
+   🔹 PROFILE DROPDOWN
+========================= */
+.profile-dropdown {
+  position: absolute;
+  top: 42px;
+  right: 0;
+
+  background: #ffffff;
+  color: #333;
+
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 180px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+.profile-dropdown p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.profile-dropdown hr {
+  border: none;
+  height: 1px;
+  background: #ddd;
+  margin: 8px 0;
+}
+
+.profile-dropdown button {
+  width: 100%;
+  padding: 6px 0;
+
+  background: #1e3c72;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* =========================
+   🔥 MOBILE
+========================= */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 14px;
+  }
+
+  .navbar ul {
+    gap: 10px;
+  }
+
+  .navbar ul li a {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}

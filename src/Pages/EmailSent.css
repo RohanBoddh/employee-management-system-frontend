@@ -1,0 +1,64 @@
+.sent-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f7fb;
+  padding: 20px;
+}
+
+.sent-card {
+  width: 420px;
+  max-width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* text */
+.sent-card .small {
+  font-size: 13px;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* button */
+.sent-card button {
+  margin-top: 20px;
+  background: #8bbcff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ========= RESPONSIVE ONLY ========= */
+
+/* tablet */
+@media (max-width: 768px) {
+  .sent-card {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+  .sent-card {
+    padding: 25px 20px;
+  }
+
+  .sent-card button {
+    width: 100%;
+  }
+}
+
+/* small mobile */
+@media (max-width: 360px) {
+  .sent-card {
+    padding: 20px 16px;
+  }
+}

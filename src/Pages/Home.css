@@ -1,0 +1,294 @@
+body {
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+.app-root {
+  width: 100%;
+}
+
+/* HERO SECTION */
+
+.hero-section {
+  min-height: 89vh;
+  background: linear-gradient(138deg, #6eda95, #0f766e);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.hero-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LEFT TEXT */
+.hero-left {
+  max-width: 420px;
+  padding-top: 85px;
+  margin-left: clamp(12px, 6vw, 120px);
+}
+
+.hero-left h1 {
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero-left p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #dcdcdc;
+}
+
+/* RIGHT IMAGE */
+.hero-right {
+  padding-right: 120px;
+}
+
+.hero-right img {
+  width: 300px;
+  height: auto;
+  opacity: 0.9;
+}
+
+/* WHITE CONTAINER */
+
+.page-wrapper {
+  width: 100%;
+  padding: 60px 0;
+  background-color: #74d3e457;
+}
+
+.page-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  background: #66a5856e; 
+  padding: 40px 60px;
+  border-radius: 18px;
+}
+
+/* SECTION HEADING */
+
+.section-heading {
+  color: #000;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+/* CARDS */
+
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.info-card {
+  border: 1px solid #ddd;
+  background: #fff;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+.info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.info-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin: 14px 16px 6px;
+  color: #000000;
+}
+
+.info-card h3 {
+  font-size: 15px;
+  margin: 0 16px 12px;
+  color: #000;
+}
+
+.info-card a {
+  margin: 0 16px 20px;
+  display: inline-block;
+  color: #d32f2f;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ===== THEORY CONTAINER ===== */
+.theory-container {
+  background-color: #abd1d3;
+  padding: 60px 25px 10px 25px;   /* bottom padding 0 */
+  margin-bottom: 0;
+}
+
+.theory-box {
+  width: 100%;
+  padding: 20px;
+  border-radius: 18px 18px 18px 18px;  /* niche se straight */
+  background: rgba(102, 165, 133, 0.43);
+  margin-bottom: 0;
+}
+
+.theory-section {
+  margin-bottom: 60px;
+}
+
+.theory-section h2 {
+  font-size: 28px;
+  color: #033e39;
+  padding-left: 150px;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+/* underline */
+.theory-section h2::after {
+  content: "";
+  display: block;
+  width: 70%;
+  padding-left: 150px;
+  height: 3px;
+  background: #000;
+  margin-top: 6px;
+}
+
+.theory-section p {
+  color: black;
+  font-size: 20px;
+  line-height: 1.5;
+  max-width: 900px;
+  padding-left: 150px;
+  font-weight: bold;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablets and below */
+@media (max-width: 1024px) {
+  .hero-left {
+    padding-left: 80px;
+    max-width: 360px;
+  }
+
+  .hero-left h1 {
+    font-size: 32px;
+  }
+
+  .hero-left p {
+    font-size: 16px;
+  }
+
+  .hero-right {
+    padding-right: 60px;
+  }
+
+  .hero-right img {
+    width: 250px;
+  }
+
+  .page-container {
+    padding: 30px 40px;
+  }
+
+  .theory-section h2,
+  .theory-section h2::after,
+  .theory-section p {
+    padding-left: 60px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero-left {
+    padding-left: 0;
+    max-width: 100%;
+  }
+
+  .hero-left h1 {
+    font-size: 28px;
+  }
+
+  .hero-left p {
+    font-size: 15px;
+  }
+
+  .hero-right {
+    padding-right: 0;
+    margin-top: 20px;
+  }
+
+  .hero-right img {
+    width: 200px;
+  }
+
+  .page-container {
+    padding: 20px;
+  }
+
+  .cards-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .theory-section h2,
+  .theory-section h2::after,
+  .theory-section p {
+    padding-left: 20px;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .cards-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero-left h1 {
+    font-size: 24px;
+  }
+
+  .hero-left p {
+    font-size: 14px;
+  }
+
+  .hero-right img {
+    width: 150px;
+  }
+
+  .page-container {
+    padding: 15px;
+  }
+
+  .theory-section h2,
+  .theory-section h2::after,
+  .theory-section p {
+    padding-left: 10px;
+  }
+}

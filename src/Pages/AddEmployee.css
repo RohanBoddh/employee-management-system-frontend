@@ -1,0 +1,151 @@
+/* =========================
+   🌄 FULL PAGE BACKGROUND
+========================= */
+.add-employee {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;          /* 🔑 prevent overflow */
+  overflow-x: hidden;       /* 🔑 */
+
+  background: url("../Pages/images/addemployeeimage.png")
+    no-repeat center center / cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* =========================
+   🌑 DARK OVERLAY
+========================= */
+.add-employee::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+/* =========================
+   🏷️ PAGE TITLE
+========================= */
+.add-employee::after {
+  content: "Add Employee";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: #000;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+
+  max-width: 90vw;           /* 🔑 */
+  white-space: normal;       /* 🔑 */
+  word-break: break-word;    /* 🔑 */
+
+  font-size: clamp(22px, 6vw, 42px); /* 🔥 responsive */
+  z-index: 2;
+}
+
+/* =========================
+   🧾 FORM CARD
+========================= */
+.add-employee form {
+  position: relative;
+  z-index: 2;
+
+  width: 420px;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+
+  padding: 35px;
+  margin-top: 70px;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  box-sizing: border-box;
+}
+
+/* =========================
+   ✏️ INPUT
+========================= */
+.add-employee input {
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+.add-employee input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+/* =========================
+   🔘 BUTTON
+========================= */
+.add-employee button {
+  margin-top: 10px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background 0.3s ease;
+}
+
+.add-employee button:hover {
+  background: #0056b3;
+}
+
+/* =========================
+   📱 TABLET
+========================= */
+@media (max-width: 768px) {
+  .add-employee {
+    padding-top: 70px;
+    align-items: flex-start;
+  }
+
+  .add-employee form {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+  }
+}
+
+/* =========================
+   📲 MOBILE
+========================= */
+@media (max-width: 480px) {
+  .add-employee {
+    padding: 15px;
+    padding-top: 80px;
+  }
+
+  .add-employee form {
+    padding: 25px;
+  }
+}
