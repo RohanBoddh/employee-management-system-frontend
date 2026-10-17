@@ -14,7 +14,7 @@
   --bg-card-hover:   #162547;
   --bg-glass:        rgba(15, 23, 42, 0.85);
   --bg-input:        #0b1325;
-  --bg-header:       rgba(8, 13, 26, 0.94);
+  --bg-header:       #0a1128; /* 100% SOLID OPAQUE DARK NAVY BLUE - NO TRANSPARENCY */
   --bg-accent-box:   rgba(30, 41, 59, 0.7);
 
   /* Borders */
@@ -80,7 +80,7 @@
   --bg-card-hover:   #f1f5f9;
   --bg-glass:        rgba(255, 255, 255, 0.92);
   --bg-input:        #ffffff;
-  --bg-header:       rgba(255, 255, 255, 0.96);
+  --bg-header:       #ffffff; /* 100% SOLID OPAQUE WHITE - NO TRANSPARENCY */
   --bg-accent-box:   #f1f5f9;
 
   /* Borders */
