@@ -9,6 +9,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("ADMIN"); // Default to Admin for easy testing
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -42,7 +43,7 @@ const Signup = () => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/auth/signup`,
-        { email, password },
+        { email, password, role, position: role },
         { headers: { "Content-Type": "application/json" } }
       );
 
@@ -150,6 +151,32 @@ const Signup = () => {
                   required
                 />
               </div>
+            </div>
+
+            {/* Account Role Selection */}
+            <div className="auth-field">
+              <label className="auth-label" htmlFor="signup-role">
+                Account Role / Access Level *
+              </label>
+              <div className="auth-input-wrap">
+                <span className="auth-input-icon">🛡️</span>
+                <select
+                  id="signup-role"
+                  name="role"
+                  className="auth-input auth-select"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  required
+                >
+                  <option value="ADMIN">👑 System Administrator (Full Access + Reports)</option>
+                  <option value="HR">💼 HR Administrator (Directory & Attendance)</option>
+                  <option value="EMPLOYEE">👤 Standard Staff Member</option>
+                  <option value="MANAGER">📈 Department Manager</option>
+                </select>
+              </div>
+              <p className="auth-field-hint">
+                💡 Select <b>Admin</b> to test and inspect all platform features, including Support Reports.
+              </p>
             </div>
 
             {/* Password Field */}

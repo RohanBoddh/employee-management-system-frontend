@@ -50,18 +50,46 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // ✅ Signup function (no change needed)
-  const signup = async (email, password) => {
+  // ✅ Signup function with role support
+  const signup = async (email, password, role = "Employee") => {
     setLoading(true);
     try {
       const res = await axios.post(
         `${API_BASE_URL}/auth/signup`,
-        { email, password }
+        { email, password, role, position: role }
       );
       return res.data;
     } finally {
       setLoading(false);
     }
+  };
+
+  // ✅ Switch / Update user role (with backend sync and instant session update)
+  const updateUserRole = async (newRole) => {
+    if (!user && !sessionStorage.getItem("user")) return;
+    const cleanRole = newRole.trim();
+    const currentUser = user || JSON.parse(sessionStorage.getItem("user") || "{}");
+
+    const updatedUser = {
+      ...currentUser,
+      role: cleanRole.toLowerCase(),
+      position: cleanRole,
+    };
+
+    setUser(updatedUser);
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+
+    try {
+      await axios.post(`${API_BASE_URL}/auth/update-role`, {
+        email: currentUser.email,
+        role: cleanRole,
+        position: cleanRole,
+      });
+    } catch (err) {
+      console.warn("Backend role sync skipped or offline:", err.message);
+    }
+
+    return updatedUser;
   };
 
   // ✅ Logout function
@@ -88,7 +116,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, signup, logout, fetchUser, loading }}
+      value={{ user, login, signup, logout, fetchUser, updateUserRole, loading }}
     >
       {children}
     </AuthContext.Provider>

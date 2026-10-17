@@ -747,6 +747,265 @@
 }
 
 /* ══════════════════════════════════════
+   5. WORKPLACE ROLE SIMULATOR & ACCESS SWITCHER
+══════════════════════════════════════ */
+.role-simulator-card {
+  margin-top: 10px;
+  position: relative;
+  background: linear-gradient(145deg, rgba(16, 26, 52, 0.94) 0%, rgba(10, 18, 40, 0.94) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 36px);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 25px -4px rgba(56, 189, 248, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+[data-theme="light"] .role-simulator-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 14px 35px -8px rgba(59, 130, 246, 0.15);
+}
+
+.role-sim-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.role-sim-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 680px;
+}
+
+.role-sim-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  width: fit-content;
+  margin-bottom: 4px;
+}
+
+.current-role-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: rgba(6, 11, 24, 0.7);
+  padding: 10px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+[data-theme="light"] .current-role-indicator {
+  background: #f1f5f9;
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.cur-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.cur-val {
+  font-size: 17px;
+  font-weight: 800;
+  color: #38bdf8;
+  margin-top: 2px;
+}
+
+[data-theme="light"] .cur-val {
+  color: #2563eb;
+}
+
+/* Mandatory English Disclaimer Box */
+.role-sim-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  border-radius: 16px;
+  padding: 16px 20px;
+}
+
+[data-theme="light"] .role-sim-disclaimer {
+  background: #fffbeb;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.disclaimer-alert-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.disclaimer-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.disclaimer-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #fbbf24;
+}
+
+[data-theme="light"] .disclaimer-title {
+  color: #b45309;
+}
+
+.disclaimer-body {
+  margin: 0;
+  font-size: 13px;
+  color: #fde68a;
+  line-height: 1.5;
+}
+
+[data-theme="light"] .disclaimer-body {
+  color: #92400e;
+}
+
+/* Toast */
+.role-sim-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
+
+.role-sim-toast p {
+  margin: 0;
+}
+
+/* Role Options Grid */
+.role-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.role-option-card {
+  position: relative;
+  background: rgba(6, 11, 24, 0.65);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+
+[data-theme="light"] .role-option-card {
+  background: #f8fafc;
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.role-option-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(10, 18, 40, 0.85);
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.5), 0 0 16px -4px rgba(56, 189, 248, 0.2);
+}
+
+[data-theme="light"] .role-option-card:hover {
+  background: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.15);
+}
+
+.role-option-card.selected {
+  border-color: #38bdf8;
+  background: rgba(37, 99, 235, 0.16);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="light"] .role-option-card.selected {
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.role-opt-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.admin-opt { background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.35); }
+.hr-opt    { background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.35); }
+.emp-opt   { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.35); }
+.mgr-opt   { background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.35); }
+
+.role-opt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.role-opt-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+[data-theme="light"] .role-opt-name {
+  color: #0f172a;
+}
+
+.role-opt-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+[data-theme="light"] .role-opt-desc {
+  color: #64748b;
+}
+
+.active-check {
+  font-size: 11px;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 3px 8px;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+/* ══════════════════════════════════════
    6. RESPONSIVE BREAKPOINTS
 ══════════════════════════════════════ */
 @media (max-width: 960px) {
@@ -771,5 +1030,9 @@
   }
   .dossier-val {
     text-align: left;
+  }
+  .current-role-indicator {
+    align-items: flex-start;
+    width: 100%;
   }
 }

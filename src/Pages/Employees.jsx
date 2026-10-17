@@ -11,6 +11,8 @@ import hrAttendanceImg from "../Pages/images/hr-attendance.png";
 const Employees = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const roleUpper = (user?.role || user?.position || "").toUpperCase();
+  const isAdmin = roleUpper === "ADMIN" || roleUpper === "ADMINISTRATOR" || roleUpper === "HR ADMIN";
 
   const [employees, setEmployees] = useState([]);
   const [reports, setReports] = useState([]);
@@ -173,17 +175,25 @@ const Employees = () => {
             </div>
           </div>
 
-          {/* Support Inquiries Card */}
+          {/* Support Inquiries Card (Admin Only) */}
           <div
-            className="emp-metric-card clickable-kpi"
-            onClick={() => navigate("/reports")}
-            title="Click to view all Support Inquiries"
+            className={`emp-metric-card clickable-kpi ${!isAdmin ? "locked-kpi" : ""}`}
+            onClick={() => {
+              if (isAdmin) {
+                navigate("/reports");
+              } else {
+                alert("Access Restricted: Support & HR Reports are only accessible by System Administrators (Admin). You can switch your role to Admin on your Dashboard to view reports.");
+              }
+            }}
+            title={isAdmin ? "Click to view all Support Inquiries" : "Restricted to System Administrators (Admin)"}
           >
             <div className="emp-metric-icon purple-kpi">🎧</div>
             <div className="emp-metric-content">
               <span className="emp-metric-title">Support Inquiries</span>
               <h3 className="emp-metric-value">{reports.length}</h3>
-              <span className="emp-metric-subtext">Open Grievance Tickets ↗</span>
+              <span className="emp-metric-subtext">
+                {isAdmin ? "Open Grievance Tickets ↗" : "Admin Only Access 🔒"}
+              </span>
             </div>
           </div>
 

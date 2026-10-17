@@ -46,10 +46,16 @@ const Navbar = () => {
     navigate("/", { replace: true });
   };
 
+  const roleUpper = (user?.role || user?.position || "").toUpperCase();
+  const isAdmin =
+    roleUpper === "ADMIN" ||
+    user?.role?.toUpperCase() === "ADMIN" ||
+    user?.position?.toUpperCase() === "ADMIN";
+
   const isHR =
     user?.position?.toUpperCase() === "HR" ||
     user?.role?.toLowerCase() === "hr" ||
-    user?.role?.toLowerCase() === "admin";
+    isAdmin;
 
   const firstLetter = user?.name ? user.name.charAt(0).toUpperCase() : (user?.email ? user.email.charAt(0).toUpperCase() : "U");
 
@@ -107,7 +113,8 @@ const Navbar = () => {
             </>
           )}
 
-          {user && (
+          {/* 📋 Support Reports: ONLY FOR ADMIN */}
+          {user && isAdmin && (
             <li>
               <NavLink
                 to="/reports"
@@ -290,27 +297,29 @@ const Navbar = () => {
                 </>
               )}
 
+              {/* 📋 Support Reports: ONLY FOR ADMIN */}
+              {user && isAdmin && (
+                <li>
+                  <NavLink
+                    to="/reports"
+                    className={({ isActive }) => (isActive ? "mobile-nav-link active" : "mobile-nav-link")}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="mob-icon">📋</span> Support Reports
+                  </NavLink>
+                </li>
+              )}
+
               {user && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/reports"
-                      className={({ isActive }) => (isActive ? "mobile-nav-link active" : "mobile-nav-link")}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span className="mob-icon">📋</span> Reports
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/profile"
-                      className={({ isActive }) => (isActive ? "mobile-nav-link active" : "mobile-nav-link")}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <span className="mob-icon">👤</span> My Profile
-                    </NavLink>
-                  </li>
-                </>
+                <li>
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) => (isActive ? "mobile-nav-link active" : "mobile-nav-link")}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="mob-icon">👤</span> My Profile
+                  </NavLink>
+                </li>
               )}
 
               <li>

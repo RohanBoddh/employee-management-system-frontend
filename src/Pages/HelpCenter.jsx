@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 import { API_BASE_URL } from "../services/api";
 import "./HelpCenter.css";
 
 const HelpCenter = () => {
+  const { user } = useAuth();
+  const roleUpper = (user?.role || user?.position || "").toUpperCase();
+  const isAdmin = roleUpper === "ADMIN" || roleUpper === "ADMINISTRATOR" || roleUpper === "HR ADMIN";
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [issue, setIssue] = useState("");
@@ -107,9 +112,11 @@ const HelpCenter = () => {
             </div>
 
             <div className="hlp-hero-actions">
-              <Link to="/reports" className="hlp-cta-btn">
-                📋 View Reports
-              </Link>
+              {isAdmin && (
+                <Link to="/reports" className="hlp-cta-btn">
+                  📋 View Reports
+                </Link>
+              )}
               <Link to="/dashboard" className="hlp-secondary-btn">
                 📊 Workspace
               </Link>

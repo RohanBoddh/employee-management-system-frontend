@@ -46,7 +46,6 @@ function App() {
         <Route path="/email-sent" element={<EmailSent />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/help" element={<HelpCenter />} />
-        <Route path="/reports" element={<Reports />} />
 
         {/* 🔒 COMMON PROTECTED ROUTES */}
         <Route
@@ -177,6 +176,24 @@ function App() {
           element={
             <PrivateRoute allowedRoles={["HR"]}>
               <AbsentEmployees />
+            </PrivateRoute>
+          }
+        />
+
+        {/* 👑 ADMIN ONLY ROUTES (REPORTS) */}
+        <Route
+          path="/reports"
+          element={
+            <PrivateRoute allowedRoles={["ADMIN"]}>
+              <Reports />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/Reports"
+          element={
+            <PrivateRoute allowedRoles={["ADMIN"]}>
+              <Reports />
             </PrivateRoute>
           }
         />

@@ -16,15 +16,17 @@ const Reports = () => {
   useEffect(() => {
     const position = user?.position?.toUpperCase();
     const role = user?.role?.toUpperCase();
+    const isAdmin = position === "ADMIN" || role === "ADMIN";
 
-    if (!user || (position !== "HR" && role !== "ADMIN")) {
+    if (!user || !isAdmin) {
       const stored = JSON.parse(sessionStorage.getItem("user") || "null");
       const storedPos = stored?.position?.toUpperCase();
       const storedRole = stored?.role?.toUpperCase();
+      const isStoredAdmin = storedPos === "ADMIN" || storedRole === "ADMIN";
 
-      if (storedPos !== "HR" && storedRole !== "ADMIN") {
-        alert("Access restricted: Only HR and Admin administrators can view Support Reports.");
-        navigate("/");
+      if (!isStoredAdmin) {
+        alert("Access restricted: Only System Administrators (Admin) can view Support & HR Reports.");
+        navigate("/dashboard");
         return;
       }
     }

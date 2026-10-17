@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 import { API_BASE_URL } from "../services/api";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [roleChangeNotice, setRoleChangeNotice] = useState("");
+  const { updateUserRole } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +22,7 @@ const Dashboard = () => {
         address: "HQ Suite 400",
         department: "Human Resources",
         position: "HR",
+        role: "hr",
         joiningDate: new Date().toISOString().slice(0, 10),
       });
       return;
@@ -37,6 +41,7 @@ const Dashboard = () => {
           address: data.address || "Headquarters Tower 1",
           department: data.position || storedUser.position || "Operations",
           position: data.position || storedUser.position || "Staff",
+          role: storedUser.role || (data.position?.toUpperCase() === "ADMIN" ? "admin" : (data.position?.toUpperCase() === "HR" ? "hr" : "employee")),
           joiningDate: data.createdAt ? data.createdAt.slice(0, 10) : "2026-01-15",
         });
       })
@@ -49,6 +54,7 @@ const Dashboard = () => {
           address: "Headquarters Tower 1",
           department: storedUser.position || "Operations",
           position: storedUser.position || "Staff",
+          role: storedUser.role || (storedUser.position?.toUpperCase() === "ADMIN" ? "admin" : (storedUser.position?.toUpperCase() === "HR" ? "hr" : "employee")),
           joiningDate: "2026-01-15",
         });
       });
@@ -59,6 +65,30 @@ const Dashboard = () => {
       navigator.clipboard.writeText(user.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleRoleChange = async (newRole) => {
+    try {
+      if (updateUserRole) {
+        await updateUserRole(newRole);
+      }
+      setUser((prev) => ({
+        ...prev,
+        position: newRole,
+        department: newRole === "HR" || newRole === "ADMIN" ? "Human Resources" : prev.department,
+        role: newRole.toLowerCase(),
+      }));
+
+      setRoleChangeNotice(
+        `Role successfully switched to "${newRole}". Notice: This temporary access is provided for full website exploration and can be revoked by the administrator at any time.`
+      );
+
+      setTimeout(() => {
+        setRoleChangeNotice("");
+      }, 6000);
+    } catch (err) {
+      console.error("Failed to switch role:", err);
     }
   };
 
@@ -74,9 +104,9 @@ const Dashboard = () => {
     );
   }
 
-  const isHR =
-    user.position?.toUpperCase() === "HR" ||
-    user.department?.toUpperCase() === "HR";
+  const roleUpper = (user.position || user.role || "").toUpperCase();
+  const isAdmin = roleUpper === "ADMIN" || roleUpper === "ADMINISTRATOR" || roleUpper === "HR ADMIN";
+  const isHR = roleUpper === "HR" || isAdmin;
 
   const firstLetter = user.name ? user.name.charAt(0).toUpperCase() : "U";
 
@@ -258,16 +288,19 @@ const Dashboard = () => {
                   </>
                 )}
 
-                <button
-                  className="quick-action-btn neutral-action"
-                  onClick={() => navigate("/reports")}
-                >
-                  <span className="btn-ic">📋</span>
-                  <div className="btn-text-block">
-                    <b>Support & HR Reports</b>
-                    <span>View tickets and departmental inquiries</span>
-                  </div>
-                </button>
+                {/* 📋 Support Reports: ONLY FOR ADMIN */}
+                {isAdmin && (
+                  <button
+                    className="quick-action-btn neutral-action"
+                    onClick={() => navigate("/reports")}
+                  >
+                    <span className="btn-ic">📋</span>
+                    <div className="btn-text-block">
+                      <b>Support & HR Reports (Admin)</b>
+                      <span>View tickets and departmental inquiries</span>
+                    </div>
+                  </button>
+                )}
 
                 <button
                   className="quick-action-btn neutral-action"
@@ -307,6 +340,97 @@ const Dashboard = () => {
           </div>
 
         </div>
+
+        {/* ── 4. WORKPLACE ROLE ACCESS SWITCHER & EVALUATION SIMULATOR ── */}
+        <section className="dash-section-card role-simulator-card">
+          <div className="role-sim-header-row">
+            <div className="role-sim-title-group">
+              <div className="role-sim-badge">🎭 ROLE SIMULATOR</div>
+              <h3 className="section-title">Workplace Role & Access Switcher</h3>
+              <p className="section-desc">
+                Select any organizational role below to immediately test and preview platform permissions.
+              </p>
+            </div>
+            <div className="current-role-indicator">
+              <span className="cur-lbl">Current Active Role</span>
+              <span className="cur-val">{user.position || user.role || "Employee"}</span>
+            </div>
+          </div>
+
+          {/* Mandatory English Disclaimer Box */}
+          <div className="role-sim-disclaimer">
+            <div className="disclaimer-alert-icon">⚠️</div>
+            <div className="disclaimer-text-wrap">
+              <b className="disclaimer-title">Temporary Access & Evaluation Notice:</b>
+              <p className="disclaimer-body">
+                This access is temporary so that you can explore and inspect the complete website. The system administrator can remove or revoke this option at any time.
+              </p>
+            </div>
+          </div>
+
+          {/* Toast / Notification when role is switched */}
+          {roleChangeNotice && (
+            <div className="role-sim-toast">
+              <span>✅</span>
+              <p>{roleChangeNotice}</p>
+            </div>
+          )}
+
+          {/* Role Choice Buttons */}
+          <div className="role-options-grid">
+            <button
+              type="button"
+              className={`role-option-card ${roleUpper === "ADMIN" ? "selected" : ""}`}
+              onClick={() => handleRoleChange("ADMIN")}
+            >
+              <div className="role-opt-icon admin-opt">👑</div>
+              <div className="role-opt-info">
+                <span className="role-opt-name">System Administrator (Admin)</span>
+                <span className="role-opt-desc">Unlocks Support & HR Reports, Staff Directory, Attendance Roll</span>
+              </div>
+              {roleUpper === "ADMIN" && <span className="active-check">● Active</span>}
+            </button>
+
+            <button
+              type="button"
+              className={`role-option-card ${roleUpper === "HR" ? "selected" : ""}`}
+              onClick={() => handleRoleChange("HR")}
+            >
+              <div className="role-opt-icon hr-opt">💼</div>
+              <div className="role-opt-info">
+                <span className="role-opt-name">HR Administrator</span>
+                <span className="role-opt-desc">Staff Directory, Add Employee Onboarding, Attendance Hub</span>
+              </div>
+              {roleUpper === "HR" && <span className="active-check">● Active</span>}
+            </button>
+
+            <button
+              type="button"
+              className={`role-option-card ${roleUpper === "EMPLOYEE" ? "selected" : ""}`}
+              onClick={() => handleRoleChange("Employee")}
+            >
+              <div className="role-opt-icon emp-opt">👤</div>
+              <div className="role-opt-info">
+                <span className="role-opt-name">Standard Employee</span>
+                <span className="role-opt-desc">Personal Profile, Workplace Dashboard, Help Support</span>
+              </div>
+              {roleUpper === "EMPLOYEE" && <span className="active-check">● Active</span>}
+            </button>
+
+            <button
+              type="button"
+              className={`role-option-card ${roleUpper === "MANAGER" ? "selected" : ""}`}
+              onClick={() => handleRoleChange("Manager")}
+            >
+              <div className="role-opt-icon mgr-opt">📈</div>
+              <div className="role-opt-info">
+                <span className="role-opt-name">Department Manager</span>
+                <span className="role-opt-desc">Department Operations Overview, Personnel Review</span>
+              </div>
+              {roleUpper === "MANAGER" && <span className="active-check">● Active</span>}
+            </button>
+          </div>
+        </section>
 
       </div>
     </div>

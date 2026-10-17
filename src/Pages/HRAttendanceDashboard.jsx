@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 import { BACKEND_URL, API_BASE_URL } from "../services/api";
 import "./HRAttendanceDashboard.css";
 import HRAnalytics from "../Components/HRAnalytics";
 
 const HRAttendanceDashboard = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const roleUpper = (user?.role || user?.position || "").toUpperCase();
+  const isAdmin = roleUpper === "ADMIN" || roleUpper === "ADMINISTRATOR" || roleUpper === "HR ADMIN";
 
   const [stats, setStats] = useState({
     totalHR: 0,
@@ -134,9 +138,11 @@ const HRAttendanceDashboard = () => {
               <Link to="/employees" className="att-cta-btn">
                 👥 Staff Directory
               </Link>
-              <Link to="/reports" className="att-secondary-btn">
-                📋 Support Reports
-              </Link>
+              {isAdmin && (
+                <Link to="/reports" className="att-secondary-btn">
+                  📋 Support Reports
+                </Link>
+              )}
             </div>
           </div>
         </section>
