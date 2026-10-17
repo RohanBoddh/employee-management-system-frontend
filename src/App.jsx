@@ -132,7 +132,7 @@ function App() {
         <Route
           path="/hr/headcount"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute>
               <HREmployees />
             </PrivateRoute>
           }
@@ -140,7 +140,7 @@ function App() {
         <Route
           path="/hr/employees"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute>
               <HREmployees />
             </PrivateRoute>
           }

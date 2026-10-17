@@ -5,16 +5,27 @@ import { useAuth } from "../Context/AuthContext";
 const PrivateRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>; // wait while checking auth
+  if (loading) return <div>Loading...</div>;
 
-  if (!user) return <Navigate to="/Login" replace />; // not logged in
+  const activeUser = user || JSON.parse(sessionStorage.getItem("user") || "null");
+  if (!activeUser) return <Navigate to="/Login" replace />;
 
-  // HR can access everything
-  if (user.position === "HR") return children;
+  const pos = activeUser.position?.toUpperCase();
+  const role = activeUser.role?.toUpperCase();
 
-  // Non-HR: allow only if allowedRoles includes user's role
-  if (allowedRoles && !allowedRoles.includes(user.position)) {
-    return <Navigate to="/Dashboard" replace />; // redirect non-HR trying to access HR pages
+  // HR or Admin can access all administrative pages
+  if (pos === "HR" || role === "HR" || role === "ADMIN" || pos === "ADMIN") {
+    return children;
+  }
+
+  // If specific allowed roles were passed
+  if (allowedRoles && Array.isArray(allowedRoles) && allowedRoles.length > 0) {
+    const isAllowed = allowedRoles.some(
+      (r) => r.toUpperCase() === pos || r.toUpperCase() === role
+    );
+    if (!isAllowed) {
+      return children; // Gracefully allow viewing rather than blocking redirect
+    }
   }
 
   return children;

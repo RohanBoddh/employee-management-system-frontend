@@ -144,9 +144,10 @@ const HRAttendanceDashboard = () => {
         {/* ── 2. EXECUTIVE KPI METRIC CARDS ── */}
         <section className="att-metrics-grid">
           {/* Total HR (Clickable -> HR Headcount Dossier) */}
-          <div
+          <Link
+            to="/hr/headcount"
             className="att-metric-card clickable-kpi"
-            onClick={() => navigate("/hr/headcount")}
+            style={{ textDecoration: "none", color: "inherit" }}
             title="Click to view all HR Headcount personnel details"
           >
             <div className="att-metric-icon blue-kpi">👥</div>
@@ -155,7 +156,7 @@ const HRAttendanceDashboard = () => {
               <h3 className="att-metric-value">{stats.totalHR}</h3>
               <span className="att-metric-subtext">View HR Personnel Files ↗</span>
             </div>
-          </div>
+          </Link>
 
           {/* Present Today (Clickable) */}
           <div
