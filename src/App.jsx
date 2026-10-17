@@ -109,6 +109,22 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/add-employee"
+          element={
+            <PrivateRoute allowedRoles={["HR"]}>
+              <AddEmployee />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/addemployee"
+          element={
+            <PrivateRoute allowedRoles={["HR"]}>
+              <AddEmployee />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/edit-employee/:id"
