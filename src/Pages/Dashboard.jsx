@@ -89,6 +89,11 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-page-container">
+      {/* ── AMBIENT HOME-PAGE BLUE GLOW & GRID ── */}
+      <div className="dash-bg-grid" />
+      <div className="dash-bg-orb dash-bg-orb-1" />
+      <div className="dash-bg-orb dash-bg-orb-2" />
+
       <div className="dashboard-content-wrapper">
         
         {/* ── 1. WELCOME HERO BANNER ── */}
@@ -107,7 +112,9 @@ const Dashboard = () => {
                 </span>
                 <span className="dash-date-badge">🗓️ {todayDate}</span>
               </div>
-              <h1 className="dash-hero-title">Welcome back, {user.name}</h1>
+              <h1 className="dash-hero-title">
+                Welcome back, <span className="dash-hero-highlight">{user.name}</span>
+              </h1>
               <p className="dash-hero-subtitle">
                 StaffPulse Enterprise Portal & Real-time Workplace Overview
               </p>
