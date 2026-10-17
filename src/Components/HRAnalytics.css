@@ -1,30 +1,36 @@
 /* =========================================================
-   HR ANALYTICS — PREMIUM CHARTS & METRICS CONTAINER
-   ========================================================= */
+   HR ANALYTICS — EXECUTIVE CHARTS CONTAINER
+   Unified with Dashboard Deep Midnight Blue Theme
+========================================================= */
 
 .analytics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
+  gap: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* =========================================================
-   CARD
-   ========================================================= */
 .analytics-card {
   position: relative;
-  background: var(--surface, #ffffff);
-  border: 1px solid var(--border, #e2e8f0);
-  border-radius: var(--radius-xl, 1.25rem);
-  padding: 1.75rem;
-  box-shadow: var(--shadow-md, 0 10px 15px -3px rgba(0,0,0,0.07));
-  transition: all var(--transition, 0.25s cubic-bezier(0.16, 1, 0.3, 1));
+  background: linear-gradient(145deg, rgba(16, 26, 52, 0.92) 0%, rgba(10, 18, 40, 0.92) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.6), 0 0 20px -4px rgba(56, 189, 248, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  width: 100%;
-  min-width: 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-theme="light"] .analytics-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 12px 30px -8px rgba(59, 130, 246, 0.12);
 }
 
 .analytics-card::before {
@@ -33,76 +39,69 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary, #4f46e5), var(--primary-light, #818cf8));
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #38bdf8);
 }
 
 .analytics-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1));
-  border-color: rgba(99, 102, 241, 0.25);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.65), 0 0 25px -4px rgba(56, 189, 248, 0.2);
 }
 
-.analytics-card:hover::before {
-  opacity: 1;
+[data-theme="light"] .analytics-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 14px 30px -6px rgba(59, 130, 246, 0.18);
 }
 
-.analytics-card h3 {
-  margin: 0 0 1.25rem 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text, #0f172a);
-  letter-spacing: -0.01em;
+.analytics-card-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 14px;
+  margin-bottom: 20px;
 }
 
-.analytics-card h3::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary, #4f46e5);
+.analytics-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
 }
 
-/* Customize Recharts Tooltip container if rendered */
-.analytics-card .recharts-default-tooltip {
-  background: #0f172a !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 0.5rem !important;
-  color: #fff !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
-  font-size: 0.85rem !important;
+.analytics-card-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+[data-theme="light"] .analytics-card-header h3 {
+  color: #0f172a;
+}
+
+.analytics-sub {
+  font-size: 12.5px;
+  color: #94a3b8;
+  display: block;
+  margin-top: 2px;
+}
+
+[data-theme="light"] .analytics-sub {
+  color: #64748b;
+}
+
+.chart-wrapper {
+  width: 100%;
+  margin-top: auto;
+}
+
+@media (max-width: 640px) {
   .analytics-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-top: 1rem;
-  }
-
-  .analytics-card {
-    padding: 1.25rem;
-    border-radius: var(--radius-lg, 0.75rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .analytics-grid {
-    gap: 1rem;
-  }
-
-  .analytics-card {
-    padding: 1rem;
-  }
-
-  .analytics-card h3 {
-    font-size: 0.95rem;
   }
 }
