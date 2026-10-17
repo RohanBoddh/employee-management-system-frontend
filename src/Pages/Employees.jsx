@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getEmployees } from "../services/employeeservice";
 import EmployeeCard from "../Components/EmployeeCard";
 import Loader from "../Components/Loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { API_BASE_URL } from "../services/api";
 import "./Employees.css";
@@ -16,30 +16,40 @@ const Employees = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [showEmployees, setShowEmployees] = useState(false);
+  const [showEmployees, setShowEmployees] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    if (!user || (user.position !== "HR" && user.role !== "Admin")) {
-      alert("Access denied: Only HR/Admin can view employees");
-      navigate("/");
-      return;
+    // Graceful check with case-insensitivity
+    const position = user?.position?.toUpperCase();
+    const role = user?.role?.toUpperCase();
+
+    if (!user || (position !== "HR" && role !== "ADMIN")) {
+      // Check session storage fallback before rejecting
+      const stored = JSON.parse(sessionStorage.getItem("user") || "null");
+      const storedPos = stored?.position?.toUpperCase();
+      const storedRole = stored?.role?.toUpperCase();
+
+      if (storedPos !== "HR" && storedRole !== "ADMIN") {
+        alert("Access restricted: Only HR and Admin administrators can access the Employee Directory.");
+        navigate("/");
+        return;
+      }
     }
 
     const fetchData = async () => {
       try {
         const empRes = await getEmployees();
-        setEmployees(empRes.data);
+        setEmployees(Array.isArray(empRes?.data) ? empRes.data : []);
 
-        const reportRes = await fetch(
-          `${API_BASE_URL}/support/all-reports`
-        );
-        const reportData = await reportRes.json();
-        setReports(reportData);
-
+        const reportRes = await fetch(`${API_BASE_URL}/support/all-reports`);
+        if (reportRes.ok) {
+          const reportData = await reportRes.json();
+          setReports(Array.isArray(reportData) ? reportData : []);
+        }
         setLoading(false);
       } catch (err) {
-        console.error(err);
+        console.error("Directory fetch error:", err);
         setLoading(false);
       }
     };
@@ -48,15 +58,15 @@ const Employees = () => {
 
     const interval = setInterval(async () => {
       try {
-        const reportRes = await fetch(
-          `${API_BASE_URL}/support/all-reports`
-        );
-        const reportData = await reportRes.json();
-        setReports(reportData);
+        const reportRes = await fetch(`${API_BASE_URL}/support/all-reports`);
+        if (reportRes.ok) {
+          const reportData = await reportRes.json();
+          setReports(Array.isArray(reportData) ? reportData : []);
+        }
       } catch (err) {
-        console.error(err);
+        console.error("Auto-sync error:", err);
       }
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [user, navigate]);
@@ -65,134 +75,225 @@ const Employees = () => {
 
   const filteredEmployees = employees.filter((emp) => {
     const matchesDept =
-      !selectedDepartment || emp.position === selectedDepartment;
+      !selectedDepartment ||
+      emp.position?.toLowerCase() === selectedDepartment.toLowerCase();
 
+    const searchLower = searchTerm.toLowerCase();
     const matchesSearch =
-      emp.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.phone?.includes(searchTerm);
+      !searchTerm ||
+      emp.name?.toLowerCase().includes(searchLower) ||
+      emp.phone?.includes(searchTerm) ||
+      emp.email?.toLowerCase().includes(searchLower);
 
     return matchesDept && matchesSearch;
   });
 
+  const todayDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
   return (
-    <div className="employees-page">
-      <div className="dashboard-wrapper">
-        <div className="dashboard-header">
-          <h2>Employee Details Dashboard</h2>
-        </div>
+    <div className="employees-page-container">
+      {/* ── AMBIENT HOME-PAGE BLUE GLOW & GRID ── */}
+      <div className="dash-bg-grid" />
+      <div className="dash-bg-orb dash-bg-orb-1" />
+      <div className="dash-bg-orb dash-bg-orb-2" />
 
-        <div className="top-dashboard-container">
-          {/* Department Filter */}
-          <div className="mini-card">
-            <p className="card-title">Departments</p>
-            <select
-              value={selectedDepartment}
-              onChange={(e) => {
-                setSelectedDepartment(e.target.value);
-                setShowEmployees(true);
-              }}
-            >
-              <option value="">All</option>
-              <option value="HR">HR</option>
-              <option value="IT">IT</option>
-              <option value="Finance">Finance</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Sales">Sales</option>
-            </select>
-          </div>
+      <div className="employees-content-wrapper">
+        {/* ── 1. WELCOME HERO BANNER (DASHBOARD STYLE) ── */}
+        <section className="emp-hero-card">
+          <div className="emp-hero-accent-strip" />
+          <div className="emp-hero-main">
+            <div className="emp-hero-avatar-box">
+              <div className="emp-hero-avatar">👥</div>
+              <span className="emp-online-pulse" title="System Live" />
+            </div>
 
-          {/* Employees Toggle */}
-          <div className="mini-card">
-            <p className="card-title">Employees</p>
-            <button
-              className="view-btn"
-              onClick={() => {
-                setSelectedDepartment("");
-                setShowEmployees((prev) => !prev);
-              }}
-            >
-              {showEmployees ? "Hide Employees" : "View All Employees"}
-            </button>
-          </div>
-
-          {/* Total Employees */}
-          <div className="mini-card center">
-            <p className="card-title">Total Employees</p>
-            <h2>{employees.length}</h2>
-          </div>
-
-          {/* ✅ Support Reports Card (Clickable) */}
-          <div
-            className="mini-card"
-            onClick={() => navigate("/reports")}
-            style={{ cursor: "pointer" }}
-          >
-            <p className="card-title">Support Reports</p>
-            <h2>{reports.length}</h2>
-          </div>
-
-          {/* Add Employee */}
-          <div
-            className="add-employee-card"
-            onClick={() => navigate("/AddEmployee")}
-          >
-            <div className="add-icon">+</div>
-            <h3>Add New Employee</h3>
-            <p>Click to add a new employee</p>
-          </div>
-        </div>
-
-        {/* Search */}
-        {showEmployees && (
-          <div className="search-wrapper">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search by name or phone..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        )}
-
-        {/* Employee List */}
-        {showEmployees && (
-          <div className="employee-grid">
-            {filteredEmployees.length > 0 ? (
-              filteredEmployees.map((emp) => (
-                <EmployeeCard key={emp.id} employee={emp} />
-              ))
-            ) : (
-              <p className="no-data">No employees found</p>
-            )}
-          </div>
-        )}
-
-        {/* Explore Section */}
-        <div className="explore-section">
-          <h3 className="explore-title">Explore More Dashboards</h3>
-          <div className="dashboard-grid">
-            <div className="dashboard-card">
-              <img
-                src={hrAttendanceImg}
-                alt="HR Attendance Dashboard"
-                className="dashboard-img"
-              />
-              <span className="dashboard-tag">HR</span>
-              <h4>HR Employee Attendance Details Dashboard</h4>
-              <p>
-                Analyze employee attendance trends, absenteeism rates, and
-                attendance statistics.
+            <div className="emp-hero-info">
+              <div className="emp-badge-row">
+                <span className="emp-status-pill">
+                  <span className="dot" /> HR Workforce Portal
+                </span>
+                <span className="emp-date-badge">🗓️ {todayDate}</span>
+              </div>
+              <h1 className="emp-hero-title">
+                Staff Directory & <span className="emp-hero-highlight">Personnel Records</span>
+              </h1>
+              <p className="emp-hero-subtitle">
+                Search, filter departments, record real-time attendance, and manage corporate workforce.
               </p>
-              <button
-                className="dashboard-btn"
-                onClick={() => navigate("/hr-attendance-dashboard")}
-              >
-                View Dashboard
-              </button>
+            </div>
+
+            <div className="emp-hero-actions">
+              <Link to="/AddEmployee" className="emp-cta-btn">
+                <span className="btn-icon">+</span> Add New Employee
+              </Link>
+              <Link to="/hr-attendance-dashboard" className="emp-secondary-btn">
+                📊 Attendance Hub
+              </Link>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* ── 2. EXECUTIVE KPI METRIC CARDS ── */}
+        <section className="emp-metrics-grid">
+          {/* Total Employees */}
+          <div className="emp-metric-card">
+            <div className="emp-metric-icon blue-kpi">👥</div>
+            <div className="emp-metric-content">
+              <span className="emp-metric-title">Total Headcount</span>
+              <h3 className="emp-metric-value">{employees.length}</h3>
+              <span className="emp-metric-subtext">Active Personnel Registered</span>
+            </div>
+          </div>
+
+          {/* Department Filter Card */}
+          <div className="emp-metric-card filter-card">
+            <div className="emp-metric-icon cyan-kpi">🏢</div>
+            <div className="emp-metric-content full-width">
+              <span className="emp-metric-title">Department Filter</span>
+              <select
+                className="emp-dept-select"
+                value={selectedDepartment}
+                onChange={(e) => {
+                  setSelectedDepartment(e.target.value);
+                  setShowEmployees(true);
+                }}
+              >
+                <option value="">All Departments</option>
+                <option value="HR">HR & Talent</option>
+                <option value="IT">IT & Engineering</option>
+                <option value="Finance">Finance & Accounting</option>
+                <option value="Marketing">Marketing & Comms</option>
+                <option value="Sales">Sales & Growth</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Support Inquiries Card */}
+          <div
+            className="emp-metric-card clickable-kpi"
+            onClick={() => navigate("/reports")}
+            title="Click to view all Support Inquiries"
+          >
+            <div className="emp-metric-icon purple-kpi">🎧</div>
+            <div className="emp-metric-content">
+              <span className="emp-metric-title">Support Inquiries</span>
+              <h3 className="emp-metric-value">{reports.length}</h3>
+              <span className="emp-metric-subtext">Open Grievance Tickets ↗</span>
+            </div>
+          </div>
+
+          {/* Quick Visibility Toggle Card */}
+          <div className="emp-metric-card">
+            <div className="emp-metric-icon green-kpi">⚡</div>
+            <div className="emp-metric-content">
+              <span className="emp-metric-title">Display Status</span>
+              <button
+                className="emp-toggle-btn"
+                onClick={() => setShowEmployees((prev) => !prev)}
+              >
+                {showEmployees ? "Hide Directory" : "Show Directory"}
+              </button>
+              <span className="emp-metric-subtext">
+                {filteredEmployees.length} matching criteria
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. LIVE SEARCH & FILTER CONTROLS ── */}
+        {showEmployees && (
+          <section className="emp-search-container">
+            <div className="emp-search-inner">
+              <span className="emp-search-icon">🔍</span>
+              <input
+                type="text"
+                className="emp-search-input"
+                placeholder="Search staff by full name, phone number, or corporate email..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              {searchTerm && (
+                <button
+                  className="emp-clear-search"
+                  onClick={() => setSearchTerm("")}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            <div className="emp-results-pill">
+              Showing <b>{filteredEmployees.length}</b> of <b>{employees.length}</b> staff
+            </div>
+          </section>
+        )}
+
+        {/* ── 4. EMPLOYEE DIRECTORY CARDS GRID ── */}
+        {showEmployees && (
+          <section className="emp-directory-grid">
+            {filteredEmployees.length > 0 ? (
+              filteredEmployees.map((emp) => (
+                <EmployeeCard
+                  key={emp.id || emp._id}
+                  employee={emp}
+                  onAttendanceMarked={() => {}}
+                />
+              ))
+            ) : (
+              <div className="emp-no-results">
+                <span className="empty-emoji">📂</span>
+                <h3>No Employees Match Your Criteria</h3>
+                <p>Try modifying your search term or select "All Departments".</p>
+                <button
+                  className="emp-reset-btn"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSelectedDepartment("");
+                  }}
+                >
+                  Reset All Filters
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ── 5. RELATED ENTERPRISE DASHBOARDS ── */}
+        <section className="emp-explore-section">
+          <div className="emp-explore-header">
+            <h3>Explore HR Intelligence Dashboards</h3>
+            <p>Access high-level analytics, shift compliance, and workforce reports.</p>
+          </div>
+
+          <div className="emp-explore-grid">
+            <div className="emp-explore-card">
+              <div className="emp-explore-img-wrap">
+                <img
+                  src={hrAttendanceImg}
+                  alt="HR Attendance Analytics"
+                  className="emp-explore-img"
+                />
+                <span className="emp-explore-badge">HR Intelligence</span>
+              </div>
+              <div className="emp-explore-content">
+                <h4>HR Employee Attendance & Insights Portal</h4>
+                <p>
+                  Analyze workforce presence rates, absenteeism patterns, and department logs with one-click exports.
+                </p>
+                <button
+                  className="emp-explore-cta"
+                  onClick={() => navigate("/hr-attendance-dashboard")}
+                >
+                  Launch Attendance Portal →
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
