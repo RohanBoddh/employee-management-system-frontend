@@ -1,13 +1,15 @@
 /* =====================================================
-   📊 PREMIUM HR ATTENDANCE DASHBOARD
+   📊 PREMIUM RESPONSIVE HR ATTENDANCE DASHBOARD — DUAL THEME
 ===================================================== */
 
 .dashboard-wrapper1 {
-  padding: clamp(24px, 3.5vw, 48px);
+  padding: clamp(20px, 3.5vw, 44px) clamp(16px, 3vw, 36px);
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse at 80% 0%, rgba(16, 185, 129, 0.07) 0%, transparent 50%),
-    #f8fafc;
+    radial-gradient(ellipse at 80% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 100%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    var(--bg-body);
+  box-sizing: border-box;
 }
 
 /* ── SUMMARY STATS ── */
@@ -16,22 +18,27 @@
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 18px;
   margin-bottom: 28px;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .attendance-stat-card {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 18px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 22px 20px;
-  box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-sm);
   transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .attendance-stat-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 28px -5px rgba(15, 23, 42, 0.1);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
 }
 
 .stat-card-icon {
@@ -43,7 +50,7 @@
 .stat-card-number {
   font-size: 32px;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   line-height: 1;
   letter-spacing: -1px;
   margin-bottom: 4px;
@@ -52,7 +59,7 @@
 .stat-card-label {
   font-size: 12.5px;
   font-weight: 700;
-  color: #64748b;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.6px;
 }
@@ -63,17 +70,20 @@
   margin-top: 14px;
 }
 
-.stat-bar-present { background: linear-gradient(90deg, #10b981, #34d399); }
-.stat-bar-absent  { background: linear-gradient(90deg, #ef4444, #f87171); }
-.stat-bar-total   { background: linear-gradient(90deg, #4f46e5, #818cf8); }
+.stat-bar-present { background: linear-gradient(90deg, var(--accent), #34d399); }
+.stat-bar-absent  { background: linear-gradient(90deg, var(--danger), #f87171); }
+.stat-bar-total   { background: linear-gradient(90deg, var(--primary), var(--secondary)); }
 
 /* ── SECTION ── */
 .attendance-section {
-  background: #ffffff;
-  padding: clamp(22px, 3vw, 36px);
+  background: var(--bg-card);
+  padding: clamp(20px, 3vw, 36px);
   border-radius: 22px;
-  box-shadow: 0 6px 22px -5px rgba(15, 23, 42, 0.07);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  max-width: 1300px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .attendance-section-header {
@@ -84,13 +94,13 @@
   gap: 12px;
   margin-bottom: 24px;
   padding-bottom: 18px;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--border);
 }
 
 .attendance-section h3 {
-  font-size: 22px;
+  font-size: clamp(20px, 3vw, 24px);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: -0.4px;
 }
 
@@ -98,9 +108,9 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: #f1f5f9;
-  color: #475569;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-surface);
+  color: var(--text-sub);
+  border: 1px solid var(--border);
   padding: 7px 14px;
   border-radius: 10px;
   font-size: 13px;
@@ -115,17 +125,19 @@
   padding: 16px 20px;
   border-radius: 14px;
   transition: all 0.22s ease;
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
   gap: 16px;
+  box-sizing: border-box;
 }
 
 .attendance-row:not(:last-child) {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .attendance-row:hover {
-  background: #f8fafc;
-  border-color: #f1f5f9;
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
   transform: translateX(3px);
 }
 
@@ -139,7 +151,7 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #ffffff;
   font-size: 16px;
   font-weight: 800;
@@ -147,19 +159,19 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 3px 8px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 3px 8px var(--primary-glow);
 }
 
 .attendance-row-info h4 {
   font-size: 15.5px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 2px;
 }
 
 .attendance-row-info p {
   font-size: 13px;
-  color: #64748b;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -187,13 +199,13 @@
 }
 
 .attendance-buttons .btn-present {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1.5px solid #a7f3d0;
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1.5px solid rgba(16, 185, 129, 0.35);
 }
 
 .attendance-buttons .btn-present:hover {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, var(--accent), #059669);
   color: #ffffff;
   border-color: transparent;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
@@ -201,16 +213,16 @@
 }
 
 .attendance-buttons .btn-absent {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1.5px solid #fecaca;
+  background: var(--danger-light);
+  color: var(--danger);
+  border: 1.5px solid rgba(244, 63, 94, 0.35);
 }
 
 .attendance-buttons .btn-absent:hover {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
+  background: linear-gradient(135deg, var(--danger), #dc2626);
   color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.35);
   transform: translateY(-1px);
 }
 
@@ -222,14 +234,14 @@
   border-radius: 10px;
 }
 .attendance-marked.present-text {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #a7f3d0;
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid rgba(16, 185, 129, 0.35);
 }
 .attendance-marked.absent-text {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
+  background: var(--danger-light);
+  color: var(--danger);
+  border: 1px solid rgba(244, 63, 94, 0.35);
 }
 
 /* ── Responsive ── */

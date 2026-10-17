@@ -1,5 +1,5 @@
 /* =====================================================
-   ✉️ PREMIUM EMAIL SENT PAGE
+   ✉️ PREMIUM RESPONSIVE EMAIL SENT — DUAL THEME (DARK BLUE & LIGHT)
 ===================================================== */
 
 .sent-container {
@@ -8,23 +8,27 @@
   justify-content: center;
   align-items: center;
   background:
-    radial-gradient(ellipse at 50% 20%, rgba(16, 185, 129, 0.09) 0%, transparent 55%),
-    #f8fafc;
-  padding: 28px;
+    radial-gradient(ellipse at 50% 20%, rgba(16, 185, 129, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(56, 189, 248, 0.1) 0%, transparent 55%),
+    var(--bg-body);
+  padding: clamp(20px, 4vw, 40px) clamp(16px, 3vw, 28px);
+  box-sizing: border-box;
 }
 
 .sent-card {
   width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  padding: 48px 36px;
+  max-width: 440px;
+  background: var(--bg-card);
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 4vw, 36px);
   border-radius: 28px;
   text-align: center;
-  box-shadow:
-    0 24px 50px -12px rgba(15, 23, 42, 0.12),
-    0 0 0 1px rgba(226, 232, 240, 0.8);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
   animation: fadeInScale 0.5s ease-out;
   position: relative;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 /* Green success top strip */
@@ -33,7 +37,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #10b981, #34d399, #06b6d4);
+  background: linear-gradient(90deg, var(--accent), #34d399, var(--secondary));
   border-radius: 28px 28px 0 0;
 }
 
@@ -41,9 +45,9 @@
 .sent-icon {
   width: 76px;
   height: 76px;
-  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  background: var(--accent-light);
   border-radius: 50%;
-  border: 2px solid #a7f3d0;
+  border: 2px solid rgba(16, 185, 129, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,35 +57,35 @@
 }
 
 .sent-card h2 {
-  font-size: 25px;
+  font-size: clamp(22px, 3.5vw, 25px);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 10px;
   letter-spacing: -0.5px;
 }
 
 .sent-card p {
   font-size: 15px;
-  color: #64748b;
+  color: var(--text-sub);
   line-height: 1.65;
   margin-bottom: 10px;
 }
 
 .sent-card .small {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--text-muted);
   margin-top: 6px;
 }
 
 /* Info box */
 .sent-info-box {
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  background: var(--accent-light);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 14px;
   padding: 14px 18px;
   margin: 20px 0;
   font-size: 13.5px;
-  color: #166534;
+  color: var(--accent);
   font-weight: 500;
   line-height: 1.5;
 }
@@ -89,7 +93,7 @@
 .sent-card button,
 .sent-btn {
   margin-top: 24px;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, var(--accent), #059669);
   border: none;
   color: #ffffff;
   padding: 13px 28px;
@@ -98,28 +102,26 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 5px 16px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
   font-family: inherit;
-  width: 100%;
 }
 
-.sent-card button:hover {
+.sent-card button:hover,
+.sent-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.48);
+  box-shadow: 0 7px 20px rgba(16, 185, 129, 0.5);
 }
 
-.sent-back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 16px;
-  font-size: 13.5px;
-  color: #64748b;
-  cursor: pointer;
-  text-decoration: none;
-  transition: color 0.2s ease;
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.sent-back-link:hover {
-  color: #10b981;
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.2); }
+  50%      { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+}
+
+@media (max-width: 480px) {
+  .sent-card { padding: 24px 18px; }
 }

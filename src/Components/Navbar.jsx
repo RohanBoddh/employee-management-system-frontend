@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
+import { useTheme } from "../Context/ThemeContext";
 import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -28,14 +30,19 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const isHR = user?.position?.toUpperCase() === "HR" || user?.role?.toLowerCase() === "hr" || user?.role?.toLowerCase() === "admin";
+  const isHR =
+    user?.position?.toUpperCase() === "HR" ||
+    user?.role?.toLowerCase() === "hr" ||
+    user?.role?.toLowerCase() === "admin";
 
   return (
     <nav className="navbar">
       {/* ── BRAND / LOGO ── */}
       <Link to="/" className="navbar-brand">
         <div className="navbar-brand-icon">⚡</div>
-        <span>StaffPulse <span style={{ color: "#818cf8", fontWeight: 400 }}>EMS</span></span>
+        <span>
+          StaffPulse <span className="brand-accent">EMS</span>
+        </span>
       </Link>
 
       {/* ── NAV LINKS ── */}
@@ -83,15 +90,28 @@ const Navbar = () => {
           </NavLink>
         </li>
 
+        {/* 🌓 THEME TOGGLE BUTTON */}
+        <li style={{ marginLeft: "auto" }}>
+          <button
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Blue Mode"}
+            aria-label="Toggle Theme"
+          >
+            <span className="theme-toggle-icon">{theme === "dark" ? "☀️" : "🌙"}</span>
+            <span className="theme-toggle-label">{theme === "dark" ? "Light" : "Dark"}</span>
+          </button>
+        </li>
+
         {/* Login or Avatar Dropdown */}
         {!user ? (
-          <li className="avatar-wrapper" style={{ marginLeft: "auto" }}>
+          <li className="avatar-wrapper">
             <Link to="/Login" className="user-avatar login-avatar" title="Sign In">
               <span className="login-letter">Sign In</span>
             </Link>
           </li>
         ) : (
-          <li className="avatar-wrapper" ref={dropdownRef} style={{ marginLeft: "auto" }}>
+          <li className="avatar-wrapper" ref={dropdownRef}>
             <div
               className="user-avatar"
               onClick={() => setOpen(!open)}

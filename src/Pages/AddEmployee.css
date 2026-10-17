@@ -1,5 +1,5 @@
 /* =====================================================
-   ➕ PREMIUM ADD EMPLOYEE FORM STYLES
+   ➕ PREMIUM RESPONSIVE ADD EMPLOYEE — DUAL THEME (DARK BLUE & LIGHT)
 ===================================================== */
 
 .add-employee {
@@ -8,45 +8,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(24px, 5vw, 60px) clamp(16px, 4vw, 40px);
+  padding: clamp(20px, 4vw, 50px) clamp(16px, 3vw, 36px);
   background:
-    radial-gradient(ellipse at 30% 10%, rgba(79, 70, 229, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 90%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
-    #f8fafc;
+    radial-gradient(ellipse at 30% 10%, rgba(99, 102, 241, 0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+    var(--bg-body);
   position: relative;
+  box-sizing: border-box;
 }
 
 .add-employee form {
   width: 100%;
-  max-width: 540px;
-  background: #ffffff;
-  padding: clamp(30px, 4.5vw, 50px);
-  border-radius: 28px;
-  box-shadow:
-    0 24px 50px -12px rgba(15, 23, 42, 0.1),
-    0 0 0 1px rgba(226, 232, 240, 0.8);
+  max-width: 560px;
+  background: var(--bg-card);
+  padding: clamp(26px, 4.5vw, 44px);
+  border-radius: 26px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 0;
   animation: fadeInScale 0.45s ease-out;
   position: relative;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
-/* Top gradient strip */
+/* Top accent gradient strip */
 .add-employee form::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4f46e5, #6366f1, #06b6d4);
-  border-radius: 28px 28px 0 0;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  border-radius: 26px 26px 0 0;
 }
 
 .add-employee form h2,
 .add-employee-title {
-  font-size: 27px;
+  font-size: clamp(24px, 3.5vw, 27px);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   text-align: center;
   margin-bottom: 6px;
   letter-spacing: -0.6px;
@@ -56,8 +59,8 @@
 .add-employee-subtitle {
   text-align: center;
   font-size: 14px;
-  color: #64748b;
-  margin-bottom: 28px;
+  color: var(--text-muted);
+  margin-bottom: 26px;
 }
 
 /* Form fields */
@@ -71,7 +74,7 @@
 .add-employee form label {
   font-size: 12.5px;
   font-weight: 700;
-  color: #334155;
+  color: var(--text-sub);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -81,24 +84,25 @@
   width: 100%;
   padding: 13px 16px;
   border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  color: #0f172a;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-main);
   font-size: 14.5px;
   transition: all 0.25s ease;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .add-employee form input:focus,
 .add-employee form select:focus {
   outline: none;
-  border-color: #4f46e5;
-  background: #ffffff;
-  box-shadow: 0 0 0 3.5px rgba(79, 70, 229, 0.13);
+  border-color: var(--border-focus);
+  background: var(--bg-input);
+  box-shadow: 0 0 0 3.5px var(--primary-light);
 }
 
 .add-employee form input::placeholder {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 /* Grid layout for 2-column fields */
@@ -113,14 +117,14 @@
 .add-employee-btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: #ffffff;
   border: none;
   border-radius: 14px;
   font-size: 15.5px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 5px 18px rgba(79, 70, 229, 0.38);
+  box-shadow: 0 5px 18px var(--primary-glow);
   transition: all 0.25s ease;
   margin-top: 12px;
   font-family: inherit;
@@ -134,7 +138,8 @@
 .add-employee form button:hover,
 .add-employee-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+  box-shadow: 0 8px 24px var(--primary-glow);
+  filter: brightness(1.1);
 }
 
 .add-employee form button:active {
@@ -143,28 +148,40 @@
 
 /* Error / Success messages */
 .add-employee .form-error {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
+  background: var(--danger-light);
+  color: var(--danger);
+  border: 1px solid rgba(244, 63, 94, 0.35);
   padding: 11px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 13.5px;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .add-employee .form-success {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #a7f3d0;
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   padding: 11px 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 13.5px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* ── Responsive ── */
 @media (max-width: 540px) {
   .form-grid-2 { grid-template-columns: 1fr; }
+  .add-employee form { padding: 24px 18px; }
 }

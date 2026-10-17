@@ -1,23 +1,25 @@
 /* =====================================================
-   🛎️ PREMIUM HELP CENTER STYLES
+   🛎️ PREMIUM RESPONSIVE HELP CENTER — DUAL THEME (DARK BLUE & LIGHT)
 ===================================================== */
 
 .help-page {
   min-height: calc(100vh - 70px);
-  padding: clamp(36px, 5vw, 68px) clamp(20px, 4vw, 40px);
+  padding: clamp(28px, 5vw, 60px) clamp(16px, 3.5vw, 36px);
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 55%),
-    #f8fafc;
+    radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(56, 189, 248, 0.08) 0%, transparent 55%),
+    var(--bg-body);
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .help-container {
   width: 100%;
-  max-width: 880px;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 30px;
 }
 
 /* ── PAGE HEADER ── */
@@ -28,13 +30,13 @@
 .help-title {
   font-size: clamp(26px, 4vw, 38px);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: -0.8px;
   margin-bottom: 10px;
 }
 
 .help-title span {
-  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  background: linear-gradient(135deg, var(--secondary), var(--primary-hover));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -42,7 +44,7 @@
 
 .help-desc {
   font-size: 16px;
-  color: #64748b;
+  color: var(--text-muted);
   max-width: 520px;
   margin: 0 auto;
   line-height: 1.6;
@@ -50,18 +52,19 @@
 
 /* ── PANEL BOXES ── */
 .help-panel {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 22px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 6px 20px -5px rgba(15, 23, 42, 0.06);
-  padding: clamp(24px, 3.5vw, 40px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  padding: clamp(22px, 3.5vw, 38px);
   animation: fadeIn 0.4s ease-out;
+  box-sizing: border-box;
 }
 
 .section-title {
   font-size: 19px;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -73,40 +76,41 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: #f1f5f9;
+  background: var(--border);
 }
 
 /* ── FAQ ITEMS ── */
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .faq-item {
   padding: 18px 22px;
   border-radius: 14px;
-  background: #f8fafc;
-  border: 1px solid #f1f5f9;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   transition: all 0.22s ease;
   cursor: default;
+  box-sizing: border-box;
 }
 
 .faq-item:hover {
-  background: #ffffff;
-  border-color: #e2e8f0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
   transform: translateY(-2px);
 }
 
 .faq-item h4 {
   font-size: 15px;
   font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 7px;
+  color: var(--text-main);
+  margin-bottom: 8px;
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 10px;
 }
 
 .faq-item h4::before {
@@ -116,7 +120,7 @@
   justify-content: center;
   width: 22px;
   height: 22px;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #ffffff;
   border-radius: 6px;
   font-size: 11px;
@@ -127,9 +131,9 @@
 
 .faq-item p {
   font-size: 14px;
-  color: #64748b;
+  color: var(--text-muted);
   line-height: 1.65;
-  padding-left: 30px;
+  padding-left: 32px;
 }
 
 /* ── CONTACT FORM ── */
@@ -143,7 +147,7 @@
   display: block;
   font-size: 12.5px;
   font-weight: 700;
-  color: #334155;
+  color: var(--text-sub);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 6px;
@@ -159,26 +163,27 @@
   width: 100%;
   padding: 13px 16px;
   border-radius: 12px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  color: #0f172a;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-main);
   font-size: 14.5px;
   transition: all 0.22s ease;
   font-family: inherit;
   resize: vertical;
+  box-sizing: border-box;
 }
 
 .help-form input:focus,
 .help-form textarea:focus {
   outline: none;
-  border-color: #4f46e5;
-  background: #ffffff;
-  box-shadow: 0 0 0 3.5px rgba(79, 70, 229, 0.12);
+  border-color: var(--border-focus);
+  background: var(--bg-input);
+  box-shadow: 0 0 0 3.5px var(--primary-light);
 }
 
 .help-form input::placeholder,
 .help-form textarea::placeholder {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .help-form textarea {
@@ -188,14 +193,14 @@
 .help-form button {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: #ffffff;
   border: none;
   border-radius: 12px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 5px 18px rgba(79, 70, 229, 0.38);
+  box-shadow: 0 5px 18px var(--primary-glow);
   transition: all 0.25s ease;
   font-family: inherit;
   display: flex;
@@ -206,17 +211,28 @@
 
 .help-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+  box-shadow: 0 8px 24px var(--primary-glow);
+  filter: brightness(1.1);
 }
 
 /* Success message */
 .help-success {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  color: #059669;
+  background: var(--accent-light);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: var(--accent);
   padding: 14px 18px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
   text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 500px) {
+  .help-panel { padding: 22px 16px; }
+  .faq-item p { padding-left: 0; }
 }

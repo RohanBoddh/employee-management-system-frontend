@@ -1,13 +1,15 @@
 /* =====================================================
-   📅 PREMIUM ATTENDANCE LIST PAGE
+   📅 PREMIUM RESPONSIVE ATTENDANCE LIST — DUAL THEME
 ===================================================== */
 
 .attendance-page {
-  padding: clamp(24px, 3.5vw, 48px);
+  padding: clamp(20px, 3.5vw, 44px) clamp(16px, 3vw, 36px);
   min-height: calc(100vh - 70px);
   background:
-    radial-gradient(ellipse at 0% 100%, rgba(6, 182, 212, 0.07) 0%, transparent 50%),
-    #f8fafc;
+    radial-gradient(ellipse at 0% 100%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    var(--bg-body);
+  box-sizing: border-box;
 }
 
 .attendance-page-header {
@@ -17,12 +19,15 @@
   flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 28px;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .attendance-page h2 {
-  font-size: 28px;
+  font-size: clamp(22px, 3.5vw, 28px);
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: -0.6px;
 }
 
@@ -30,21 +35,21 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 8px 16px;
   font-size: 13.5px;
   font-weight: 600;
-  color: #475569;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  color: var(--text-sub);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Empty state */
 .empty-text {
   text-align: center;
   font-size: 16px;
-  color: #94a3b8;
+  color: var(--text-muted);
   padding: 60px 20px;
   font-weight: 500;
 }
@@ -55,16 +60,19 @@
   gap: 14px;
   margin-bottom: 24px;
   flex-wrap: wrap;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .attendance-filter-btn {
   padding: 9px 18px;
   border-radius: 10px;
-  border: 1.5px solid #e2e8f0;
-  background: #ffffff;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
   font-size: 13.5px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--text-sub);
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -72,10 +80,10 @@
 
 .attendance-filter-btn:hover,
 .attendance-filter-btn.active {
-  background: #4f46e5;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: #ffffff;
-  border-color: #4f46e5;
-  box-shadow: 0 3px 10px rgba(79, 70, 229, 0.3);
+  border-color: var(--primary);
+  box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 /* Grid - uses cards from EmployeeCard.css */
@@ -83,6 +91,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 /* Attendance page specific badge adjustments */
@@ -91,27 +101,17 @@
   align-items: center;
   gap: 5px;
   margin-top: 10px;
-  padding: 4px 11px;
+  padding: 4px 12px;
   font-size: 12.5px;
   font-weight: 700;
   border-radius: 20px;
 }
 
-/* present/absent status overrides for this page */
-.attendance-page .present {
-  background: #ecfdf5;
-  color: #059669;
-  border: 1px solid #a7f3d0;
-}
-
-.attendance-page .absent {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
-}
-
-/* ── Responsive ── */
 @media (max-width: 640px) {
+  .attendance-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .cards-grid {
     grid-template-columns: 1fr;
   }
