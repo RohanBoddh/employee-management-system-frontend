@@ -35,8 +35,11 @@ function App() {
       <Routes>
         {/* 🌐 PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/Home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/email-sent" element={<EmailSent />} />
@@ -45,6 +48,14 @@ function App() {
         <Route path="/reports" element={<Reports />} />
 
         {/* 🔒 COMMON PROTECTED ROUTES */}
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/Profile"
           element={
@@ -55,6 +66,14 @@ function App() {
         />
 
         <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/Dashboard"
           element={
             <PrivateRoute>
@@ -64,6 +83,14 @@ function App() {
         />
 
         {/* 🧑‍💼 HR ONLY ROUTES */}
+        <Route
+          path="/employees"
+          element={
+            <PrivateRoute allowedRoles={["HR"]}>
+              <Employees />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/Employees"
           element={
