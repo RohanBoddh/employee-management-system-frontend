@@ -21,6 +21,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import PrivateRoute from "./Routers/PrivateRoute";
 import HelpCenter from "./Pages/HelpCenter";
 import Reports from "./Pages/Reports";
+import HREmployees from "./Pages/HREmployees";
 
 
 function App() {
@@ -123,6 +124,24 @@ function App() {
           element={
             <PrivateRoute allowedRoles={["HR"]}>
               <HRAttendanceDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ HR HEADCOUNT DETAILS */}
+        <Route
+          path="/hr/headcount"
+          element={
+            <PrivateRoute allowedRoles={["HR"]}>
+              <HREmployees />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/hr/employees"
+          element={
+            <PrivateRoute allowedRoles={["HR"]}>
+              <HREmployees />
             </PrivateRoute>
           }
         />
