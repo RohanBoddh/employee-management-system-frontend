@@ -1,103 +1,188 @@
-.footer {
-  background-color: #2b2b2b;
-  color: #e5e5e5;
-  padding-top: 28px;
-  font-family: Arial, sans-serif;
-  width: 100%;
+/* =====================================================
+   🦶 PREMIUM FOOTER
+===================================================== */
 
-  flex-shrink: 0;   /* 🔥 important: footer cut nahi hoga */
+.footer {
+  background: linear-gradient(180deg, #0a0f1e 0%, #060c1a 100%);
+  color: #cbd5e1;
+  padding-top: 52px;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
 }
 
-/* 🔹 CONTAINER */
+/* Subtle top glow */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), rgba(6, 182, 212, 0.3), transparent);
+}
+
+/* ── CONTAINER ── */
 .footer-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-
-  padding: 0 24px 22px;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 36px;
+  padding: 0 clamp(20px, 4vw, 52px) 48px;
   box-sizing: border-box;
 }
 
-/* 🔹 COLUMN */
-.footer-column h4 {
-  font-size: 16px;
+/* ── BRAND COL ── */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-brand-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 800;
   color: #ffffff;
-  margin-bottom: 10px;
+  letter-spacing: -0.4px;
+}
+
+.footer-brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.footer-brand-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.65;
+  max-width: 240px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.footer-social-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.footer-social-btn:hover {
+  background: rgba(79, 70, 229, 0.2);
+  border-color: rgba(99, 102, 241, 0.35);
+  color: #a5b4fc;
+  transform: translateY(-2px);
+}
+
+/* ── COLUMNS ── */
+.footer-column h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 
 .footer-column ul {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.footer-column ul li {
-  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .footer-column ul li a {
-  color: #cfcfcf;
-  font-size: 13px;
+  color: #64748b;
+  font-size: 13.5px;
   text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .footer-column ul li a:hover {
-  color: #ffffff;
-  text-decoration: underline;
+  color: #a5b4fc;
 }
 
 .support-email {
   display: block;
-  font-size: 12.5px;
-  color: #bdbdbd;
-  margin-top: 4px;
-  word-break: break-word;   /* 🔥 mobile me email cut nahi hoga */
+  font-size: 13px;
+  color: #4f46e5;
+  margin-top: 6px;
+  word-break: break-word;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
-/* 🔹 BOTTOM BAR */
+.support-email:hover {
+  color: #818cf8;
+}
+
+/* ── BOTTOM BAR ── */
 .footer-bottom {
-  border-top: 1px solid #3a3a3a;
-  background-color: #333333;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.25);
   text-align: center;
-  padding: 12px 0;
-  font-size: 12px;
-  color: #bdbdbd;
+  padding: 16px 24px;
+  font-size: 12.5px;
+  color: #475569;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-/* ======================= */
-/* 📱 TABLET */
-/* ======================= */
+.footer-bottom a {
+  color: #64748b;
+  transition: color 0.2s ease;
+  font-size: 12.5px;
+}
+
+.footer-bottom a:hover {
+  color: #94a3b8;
+}
+
+/* ── Responsive ── */
 @media (max-width: 1024px) {
   .footer-container {
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
   }
+  .footer-brand { grid-column: 1 / -1; }
 }
 
-/* ======================= */
-/* 📲 MOBILE */
-/* ======================= */
-@media (max-width: 768px) {
-  .footer {
-    padding-top: 22px;
-  }
-
+@media (max-width: 640px) {
   .footer-container {
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 0 16px 18px;
+    gap: 28px;
+    padding: 0 18px 36px;
   }
-
-  .footer-column h4 {
-    font-size: 15px;
-  }
-
-  .footer-bottom {
-    font-size: 11.5px;
-    padding: 10px 8px;
-  }
+  .footer-brand-desc { max-width: 100%; }
 }

@@ -1,64 +1,125 @@
+/* =====================================================
+   ✉️ PREMIUM EMAIL SENT PAGE
+===================================================== */
+
 .sent-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f5f7fb;
-  padding: 20px;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(16, 185, 129, 0.09) 0%, transparent 55%),
+    #f8fafc;
+  padding: 28px;
 }
 
 .sent-card {
-  width: 420px;
-  max-width: 100%;
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 48px 36px;
+  border-radius: 28px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow:
+    0 24px 50px -12px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(226, 232, 240, 0.8);
+  animation: fadeInScale 0.5s ease-out;
+  position: relative;
 }
 
-/* text */
+/* Green success top strip */
+.sent-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #06b6d4);
+  border-radius: 28px 28px 0 0;
+}
+
+/* Success icon circle */
+.sent-icon {
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border-radius: 50%;
+  border: 2px solid #a7f3d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 24px;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.sent-card h2 {
+  font-size: 25px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.sent-card p {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
 .sent-card .small {
   font-size: 13px;
-  color: #666;
-  margin-top: 10px;
+  color: #94a3b8;
+  margin-top: 6px;
 }
 
-/* button */
-.sent-card button {
-  margin-top: 20px;
-  background: #8bbcff;
+/* Info box */
+.sent-info-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 13.5px;
+  color: #166534;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.sent-card button,
+.sent-btn {
+  margin-top: 24px;
+  background: linear-gradient(135deg, #10b981, #059669);
   border: none;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 5px 16px rgba(16, 185, 129, 0.35);
+  font-family: inherit;
+  width: 100%;
 }
 
-/* ========= RESPONSIVE ONLY ========= */
-
-/* tablet */
-@media (max-width: 768px) {
-  .sent-card {
-    width: 100%;
-    max-width: 500px;
-  }
+.sent-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.48);
 }
 
-/* mobile */
-@media (max-width: 480px) {
-  .sent-card {
-    padding: 25px 20px;
-  }
-
-  .sent-card button {
-    width: 100%;
-  }
+.sent-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  color: #64748b;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* small mobile */
-@media (max-width: 360px) {
-  .sent-card {
-    padding: 20px 16px;
-  }
+.sent-back-link:hover {
+  color: #10b981;
 }
