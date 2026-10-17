@@ -280,7 +280,18 @@
 }
 
 @media (max-width: 480px) {
+  .employee-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
   .attendance-actions.bottom {
     flex-direction: column;
+    gap: 8px;
+  }
+  .present-btn,
+  .absent-btn {
+    width: 100%;
+    padding: 11px;
+    font-size: 13.5px;
   }
 }

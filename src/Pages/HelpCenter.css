@@ -604,3 +604,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .help-page-container {
+    padding: 16px 12px 32px;
+  }
+  .hlp-hero-main {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px 16px;
+    gap: 16px;
+  }
+  .hlp-hero-title {
+    font-size: 24px;
+  }
+  .hlp-form-card,
+  .hlp-faq-card {
+    padding: 20px 16px;
+  }
+}

@@ -1012,27 +1012,64 @@
   .dash-main-grid {
     grid-template-columns: 1fr;
   }
+  .dash-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 640px) {
+  .dashboard-page-container {
+    padding: 16px 12px 32px;
+  }
   .dash-hero-main {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: stretch;
+    gap: 18px;
+    padding: 20px 16px;
+  }
+  .dash-hero-info {
+    min-width: 0;
+    width: 100%;
+  }
+  .dash-hero-title {
+    font-size: 24px;
+  }
+  .dash-hero-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .dash-cta-btn,
+  .dash-secondary-btn {
+    width: 100%;
+    justify-content: center;
   }
   .dash-metrics-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .role-options-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .role-option-card {
+    padding: 14px;
   }
   .dossier-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 4px;
   }
   .dossier-val {
     text-align: left;
+    word-break: break-all;
   }
   .current-role-indicator {
     align-items: flex-start;
     width: 100%;
+  }
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
   }
 }

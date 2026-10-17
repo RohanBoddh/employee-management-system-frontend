@@ -665,8 +665,56 @@
   background: #7dd3fc;
 }
 
+@media (max-width: 900px) {
+  .rep-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .reports-page-container {
+    padding: 16px 12px 32px;
+  }
+  .rep-hero-main {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px 16px;
+    gap: 18px;
+  }
+  .rep-hero-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rep-cta-btn,
+  .rep-secondary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .rep-search-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+}
+
 @media (max-width: 640px) {
+  .rep-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
   .rep-cards-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .rep-hero-title {
+    font-size: 22px;
+  }
+  .rep-hero-avatar {
+    width: 58px;
+    height: 58px;
+    font-size: 26px;
   }
 }

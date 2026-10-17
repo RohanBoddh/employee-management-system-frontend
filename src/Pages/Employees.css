@@ -726,17 +726,31 @@
 /* ══════════════════════════════════════
    6. RESPONSIVE BREAKPOINTS
 ══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .emp-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
+  .employees-page-container {
+    padding: 16px 12px 32px;
+  }
   .emp-hero-main {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    padding: 20px 16px;
+    gap: 18px;
   }
   .emp-hero-actions {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   .emp-cta-btn,
   .emp-secondary-btn {
-    flex: 1;
+    width: 100%;
     justify-content: center;
   }
   .emp-explore-card {
@@ -744,16 +758,31 @@
   }
   .emp-explore-img-wrap {
     width: 100%;
-    height: 160px;
-  }
-}
-
-@media (max-width: 480px) {
-  .emp-directory-grid {
-    grid-template-columns: 1fr;
+    height: 180px;
   }
   .emp-search-container {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .emp-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .emp-directory-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .emp-hero-title {
+    font-size: 22px;
+  }
+  .emp-hero-avatar {
+    width: 58px;
+    height: 58px;
+    font-size: 26px;
   }
 }
