@@ -82,11 +82,11 @@ function App() {
           }
         />
 
-        {/* 🧑‍💼 HR ONLY ROUTES */}
+        {/* 🧑‍💼 HR & ADMIN MANAGEMENT ROUTES */}
         <Route
           path="/employees"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <Employees />
             </PrivateRoute>
           }
@@ -94,7 +94,7 @@ function App() {
         <Route
           path="/Employees"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <Employees />
             </PrivateRoute>
           }
@@ -103,7 +103,7 @@ function App() {
         <Route
           path="/AddEmployee"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <AddEmployee />
             </PrivateRoute>
           }
@@ -111,7 +111,7 @@ function App() {
         <Route
           path="/add-employee"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <AddEmployee />
             </PrivateRoute>
           }
@@ -119,7 +119,7 @@ function App() {
         <Route
           path="/addemployee"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <AddEmployee />
             </PrivateRoute>
           }
@@ -128,7 +128,7 @@ function App() {
         <Route
           path="/edit-employee/:id"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <EditEmployees />
             </PrivateRoute>
           }
@@ -137,7 +137,7 @@ function App() {
         <Route
           path="/hr-attendance-dashboard"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <HRAttendanceDashboard />
             </PrivateRoute>
           }
@@ -147,7 +147,7 @@ function App() {
         <Route
           path="/hr/headcount"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <HREmployees />
             </PrivateRoute>
           }
@@ -155,7 +155,7 @@ function App() {
         <Route
           path="/hr/employees"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <HREmployees />
             </PrivateRoute>
           }
@@ -165,7 +165,7 @@ function App() {
         <Route
           path="/hr/present"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <PresentEmployees />
             </PrivateRoute>
           }
@@ -174,7 +174,7 @@ function App() {
         <Route
           path="/hr/absent"
           element={
-            <PrivateRoute allowedRoles={["HR"]}>
+            <PrivateRoute allowedRoles={["HR", "ADMIN"]}>
               <AbsentEmployees />
             </PrivateRoute>
           }

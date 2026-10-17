@@ -22,21 +22,29 @@ const Employees = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    // Graceful check with case-insensitivity
-    const position = user?.position?.toUpperCase();
-    const role = user?.role?.toUpperCase();
+    // Graceful check for HR or Admin access
+    const stored = JSON.parse(sessionStorage.getItem("user") || "null");
+    const active = user || stored;
 
-    if (!user || (position !== "HR" && role !== "ADMIN")) {
-      // Check session storage fallback before rejecting
-      const stored = JSON.parse(sessionStorage.getItem("user") || "null");
-      const storedPos = stored?.position?.toUpperCase();
-      const storedRole = stored?.role?.toUpperCase();
+    if (!active) {
+      navigate("/Login");
+      return;
+    }
 
-      if (storedPos !== "HR" && storedRole !== "ADMIN") {
-        alert("Access restricted: Only HR and Admin administrators can access the Employee Directory.");
-        navigate("/");
-        return;
-      }
+    const pos = (active.position || "").toUpperCase();
+    const role = (active.role || "").toUpperCase();
+    const isHRorAdmin =
+      pos === "ADMIN" ||
+      role === "ADMIN" ||
+      pos === "HR" ||
+      role === "HR" ||
+      pos.includes("HR") ||
+      role.includes("HR");
+
+    if (!isHRorAdmin) {
+      alert("Access restricted: Only HR and Admin administrators can access the Employee Directory.");
+      navigate("/dashboard");
+      return;
     }
 
     const fetchData = async () => {
