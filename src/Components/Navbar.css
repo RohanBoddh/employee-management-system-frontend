@@ -8,13 +8,14 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: #ffffff !important;
+  background: var(--bg-header, #ffffff);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar {
   width: 100%;
   height: 66px;
-  background: #ffffff !important;
+  background: var(--bg-header, #ffffff);
   border-bottom: 1px solid #e2e8f0;
 
   display: flex;
@@ -468,7 +469,7 @@
   width: 100%;
   max-height: calc(100vh - 66px);
   overflow-y: auto;
-  background: #ffffff !important;
+  background: var(--bg-header, #ffffff);
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
   animation: drawerSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
@@ -663,4 +664,151 @@
     font-size: 16px;
     border-radius: 8px;
   }
+}
+
+/* ══════════════════════════════════════
+   🌙 DARK THEME NAVBAR STYLES
+══════════════════════════════════════ */
+[data-theme="dark"] .navbar-header {
+  background: rgba(8, 13, 26, 0.94);
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(8, 13, 26, 0.94);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .navbar-brand-text {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .nav-link {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="dark"] .nav-link.active {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+[data-theme="dark"] .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f8fafc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .btn-signin {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="dark"] .btn-signin:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .user-avatar {
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+[data-theme="dark"] .user-dropdown {
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .dropdown-name {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .dropdown-email {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .dropdown-divider {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .dropdown-logout-btn {
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+[data-theme="dark"] .dropdown-logout-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .mobile-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .hamburger-bar {
+  background: #f8fafc;
+}
+
+[data-theme="dark"] .mobile-menu-drawer {
+  background: rgba(12, 21, 46, 0.98);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .mobile-user-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .mobile-user-name {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .mobile-user-email {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .mobile-nav-link {
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .mobile-nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .mobile-nav-link.active {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.35);
 }
